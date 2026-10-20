@@ -45,11 +45,7 @@ def main(page: ft.Page):
     txt_prezzo = ft.Text("0")
 
 
-    contatore_prezzo = ft.Row ( controls = [
-        ft.ElevatedButton("-", on_click=decrementa_prezzo),
-        txt_prezzo,
-        ft.ElevatedButton("+", on_click=incrementa_prezzo),
-    ])
+
 
     # --- FUNZIONI APP ---
     def aggiorna_lista_strumenti():
@@ -88,7 +84,7 @@ def main(page: ft.Page):
         anno = input_anno.value
         prezzo = int(txt_prezzo.value)
 
-        if not anno.isdigit() or int(anno) < 0:
+        if not anno.isdigit() or int(anno) < 0 or anno is None:
             alert.show_alert("L'anno deve avere solo cifre")
             return
 
@@ -99,7 +95,7 @@ def main(page: ft.Page):
         input_tipo.value = ""
         input_marca.value = ""
         input_anno.value =""
-        txt_prezzo.value = 0
+        txt_prezzo.value = "0"
 
         aggiorna_lista_strumenti()
 
@@ -151,6 +147,7 @@ def main(page: ft.Page):
                 contatore_prezzo,
             ],
             alignment=ft.MainAxisAlignment.CENTER),
+        pulsante_aggiungi_strumento,
 
 
         # Sezione 4
