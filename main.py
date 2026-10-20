@@ -84,7 +84,7 @@ def main(page: ft.Page):
         anno = input_anno.value
         prezzo = int(txt_prezzo.value)
 
-        if not anno.isdigit() or int(anno) < 0 or anno is None:
+        if anno is None or not anno.isdigit():
             alert.show_alert("L'anno deve avere solo cifre")
             return
 
