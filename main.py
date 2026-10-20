@@ -88,6 +88,8 @@ def main(page: ft.Page):
             alert.show_alert("L'anno deve avere solo cifre")
             return
 
+        anno = int(anno)
+
         #aggiungo strumento alla classe:
         deposito.aggiungi_strumento(tipo,marca,anno,prezzo)
 
