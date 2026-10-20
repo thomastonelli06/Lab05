@@ -1,3 +1,6 @@
+import sys
+
+
 class Prestito:
     """Rappresenta un prestito in corso di uno strumento"""
 

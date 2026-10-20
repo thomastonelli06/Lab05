@@ -36,7 +36,20 @@ def main(page: ft.Page):
     lista_strumenti = ft.ListView(expand=True, spacing=5, padding=10, auto_scroll=True)
 
     # Tutti i TextField per le info necessarie per aggiungere un nuovo strumento (tipo, marca, anno, contatore posti)
-    # TODO
+    # TODO fatto
+
+    txt_aggiunta_strumento = ft.Text("Aggiungi Nuovo Strumento", size = 20)
+    input_tipo = ft.TextField(label="Tipo")
+    input_marca = ft.TextField(label="Marca")
+    input_anno = ft.TextField(label="Anno acquisto")
+    txt_prezzo = ft.Text("0")
+
+
+    contatore_prezzo = ft.Row ( controls = [
+        ft.ElevatedButton("-", on_click=decrementa_prezzo),
+        txt_prezzo,
+        ft.ElevatedButton("+", on_click=incrementa_prezzo),
+    ])
 
     # --- FUNZIONI APP ---
     def aggiorna_lista_strumenti():
@@ -60,12 +73,56 @@ def main(page: ft.Page):
     # Handlers per la gestione dei pulsanti utili all'inserimento di un nuovo strumento
     # TODO
 
+    def incrementa_prezzo(e):
+        txt_prezzo.value = str(int(txt_prezzo.value) + 1)
+        page.update()
+
+    def decrementa_prezzo(e):
+        if int(txt_prezzo.value) > 0:
+            txt_prezzo.value = str(int(txt_prezzo.value) - 1)
+        page.update()
+
+    def conferma_aggiunta_strumento(e):
+        tipo = input_tipo.value
+        marca = input_marca.value
+        anno = input_anno.value
+        prezzo = int(txt_prezzo.value)
+
+        if not anno.isdigit() or int(anno) < 0:
+            alert.show_alert("L'anno deve avere solo cifre")
+            return
+
+        #aggiungo strumento alla classe:
+        deposito.aggiungi_strumento(tipo,marca,anno,prezzo)
+
+        #pulisco i textfield
+        input_tipo.value = ""
+        input_marca.value = ""
+        input_anno.value =""
+        txt_prezzo.value = 0
+
+        aggiorna_lista_strumenti()
+
+
+
+
+
+
     # --- EVENTI ---
     toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=cambia_tema)
     pulsante_conferma_responsabile = ft.ElevatedButton("Conferma", on_click=conferma_responsabile)
 
     # Pulsanti per la gestione dell'inserimento di un nuovo strumento
     # TODO
+
+    contatore_prezzo = ft.Row(controls=[
+            ft.ElevatedButton("-", on_click=decrementa_prezzo),
+            txt_prezzo,
+            ft.ElevatedButton("+", on_click=incrementa_prezzo),
+        ])
+
+    pulsante_aggiungi_strumento = ft.ElevatedButton("aggiungi strumento",
+            on_click= conferma_aggiunta_strumento)
 
     # --- LAYOUT ---
     page.add(
@@ -84,6 +141,17 @@ def main(page: ft.Page):
 
         # Sezione 3
         # TODO
+        ft.Divider(),
+        txt_aggiunta_strumento,
+        ft.Row(
+            controls=[
+                input_tipo,
+                input_marca,
+                input_anno,
+                contatore_prezzo,
+            ],
+            alignment=ft.MainAxisAlignment.CENTER),
+
 
         # Sezione 4
         ft.Divider(),
