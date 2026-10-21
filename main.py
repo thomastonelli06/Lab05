@@ -6,7 +6,7 @@ FILE_STRUMENTI = "strumenti.csv"
 
 def main(page: ft.Page):
     page.title = "Lab05"
-    page.horizontal_alignment = "center"
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.theme_mode = ft.ThemeMode.DARK
 
     # --- ALERT ---
@@ -108,18 +108,18 @@ def main(page: ft.Page):
 
     # --- EVENTI ---
     toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=cambia_tema)
-    pulsante_conferma_responsabile = ft.ElevatedButton("Conferma", on_click=conferma_responsabile)
+    pulsante_conferma_responsabile = ft.Button("Conferma", on_click=conferma_responsabile)
 
     # Pulsanti per la gestione dell'inserimento di un nuovo strumento
     # TODO
 
     contatore_prezzo = ft.Row(controls=[
-            ft.ElevatedButton("-", on_click=decrementa_prezzo),
+            ft.Button("-", on_click=decrementa_prezzo),
             txt_prezzo,
-            ft.ElevatedButton("+", on_click=incrementa_prezzo),
+            ft.Button("+", on_click=incrementa_prezzo),
         ])
 
-    pulsante_aggiungi_strumento = ft.ElevatedButton("aggiungi strumento",
+    pulsante_aggiungi_strumento = ft.Button("aggiungi strumento",
             on_click= conferma_aggiunta_strumento)
 
     # --- LAYOUT ---
@@ -159,4 +159,4 @@ def main(page: ft.Page):
     )
     aggiorna_lista_strumenti()
 
-ft.app(target=main)
+ft.run(main)
